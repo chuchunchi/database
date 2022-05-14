@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/Warn.css')}}">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <title>Hello, world!</title>
+</head>
+
+<body>
+ 
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand " href="#">WebSiteName</a>
+      </div>
+
+    </div>
+  </nav>
+  <div class="container">
+  	{% block content %}
+    <div class="container">
+        {% for message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{ message[0] }}">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message[1]}}
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
+
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#home">Home</a></li>
+      <li><a href="#menu1">shop</a></li>
+
+
+    </ul>
+
+    <div class="tab-content">
+      <div id="home" class="tab-pane fade in active">
+        <h3>Profile</h3>
+        <div class="row">
+          <div class="col-xs-12">
+            Accouont: sherry, user, PhoneNumber: 0912345678,  location: 24.786944626633865, 120.99753981198887
+            
+            <button type="button " style="margin-left: 5px;" class=" btn btn-info " data-toggle="modal"
+            data-target="#location">edit location</button>
+            <!--  -->
+            <div class="modal fade" id="location"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog  modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">edit location</h4>
+                  </div>
+                  <div class="modal-body">
+                    <label class="control-label " for="latitude">latitude</label>
+                    <input type="text" class="form-control" id="latitude" placeholder="enter latitude">
+                      <br>
+                      <label class="control-label " for="longitude">longitude</label>
+                    <input type="text" class="form-control" id="longitude" placeholder="enter longitude">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Edit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <!--  -->
+            walletbalance: 100
+            <!-- Modal -->
+            <button type="button " style="margin-left: 5px;" class=" btn btn-info " data-toggle="modal"
+              data-target="#myModal">Add value</button>
+            <div class="modal fade" id="myModal"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog  modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add value</h4>
+                  </div>
+                  <div class="modal-body">
+                    <input type="text" class="form-control" id="value" placeholder="enter add value">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 
+                
+             -->
+        <h3>Search</h3>
+        <div class=" row  col-xs-8">
+          <form class="form-horizontal" action="/action_page.php">
+            <div class="form-group">
+              <label class="control-label col-sm-1" for="Shop">Shop</label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" placeholder="Enter Shop name">
+              </div>
+              <label class="control-label col-sm-1" for="distance">distance</label>
+              <div class="col-sm-5">
+
+
+                <select class="form-control" id="sel1">
+                  <option>near</option>
+                  <option>medium </option>
+                  <option>far</option>
+
+                </select>
+              </div>
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="control-label col-sm-1" for="Price">Price</label>
+              <div class="col-sm-2">
+
+                <input type="text" class="form-control">
+
+              </div>
+              <label class="control-label col-sm-1" for="~">~</label>
+              <div class="col-sm-2">
+
+                <input type="text" class="form-control">
+
+              </div>
+              <label class="control-label col-sm-1" for="Meal">Meal</label>
+              <div class="col-sm-5">
+                <input type="text" list="Meals" class="form-control" id="Meal" placeholder="Enter Meal">
+                <datalist id="Meals">
+                  <option value="Hamburger">
+                  <option value="coffee">
+                </datalist>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-1" for="category"> category</label>
+            
+              
+                <div class="col-sm-5">
+                  <input type="text" list="categorys" class="form-control" id="category" placeholder="Enter shop category">
+                  <datalist id="categorys">
+                    <option value="fast food">
+               
+                  </datalist>
+                </div>
+                <button type="submit" style="margin-left: 18px;"class="btn btn-primary">Search</button>
+              
+            </div>
+          </form>
+        </div>
+        <div class="row">
+          <div class="  col-xs-8">
+            <table class="table" style=" margin-top: 15px;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                
+                  <th scope="col">shop name</th>
+                  <th scope="col">shop category</th>
+                  <th scope="col">Distance</th>
+               
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+               
+                  <td>macdonald</td>
+                  <td>fast food</td>
+                
+                  <td>near </td>
+                  <td>  <button type="button" class="btn btn-info " data-toggle="modal" data-target="#macdonald">Open menu</button></td>
+            
+                </tr>
+           
+
+              </tbody>
+            </table>
+
+                <!-- Modal -->
+  <div class="modal fade" id="macdonald"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">menu</h4>
+        </div>
+        <div class="modal-body">
+         <!--  -->
+  
+         <div class="row">
+          <div class="  col-xs-12">
+            <table class="table" style=" margin-top: 15px;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Picture</th>
+                 
+                  <th scope="col">meal name</th>
+               
+                  <th scope="col">price</th>
+                  <th scope="col">Quantity</th>
+                
+                  <th scope="col">Order check</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td><img src="Picture/1.jpg" with="50" heigh="10" alt="Hamburger"></td>
+                
+                  <td>Hamburger</td>
+                
+                  <td>80 </td>
+                  <td>20 </td>
+              
+                  <td> <input type="checkbox" id="cbox1" value="Hamburger"></td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td><img src="Picture/2.jpg" with="10" heigh="10" alt="coffee"></td>
+                 
+                  <td>coffee</td>
+             
+                  <td>50 </td>
+                  <td>20</td>
+              
+                  <td><input type="checkbox" id="cbox2" value="coffee"></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        
+
+         <!--  -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Order</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+          </div>
+
+        </div>
+      </div>
+      <div id="menu1" class="tab-pane fade">
+
+        <h3> Start a business </h3>
+		{% if userShop is none %}
+        <form class="form-group " method="POST" action="{{url_for('registerShop')}}">
+          <div class="row">
+            <div class="col-xs-2">
+              <label for="shopName">shop name</label>
+              <input class="form-control" id="shopName" placeholder="macdonald" type="text" name="shopName" oninput="validateShopInfo();">
+			  <p id="Warn" name="shopNameWarn"><small>  </small></p>
+            </div>
+            <div class="col-xs-2">
+              <label for="shopType">shop category</label>
+              <input class="form-control" id="shopType" placeholder="fast food" type="text" name="shopType" oninput="validateShopInfo();">
+			  <p id="Warn" name="shopTypeWarn"><small>  </small></p>
+            </div>
+            <div class="col-xs-2">
+              <label for="shopLongitude">longitude</label>
+              <input class="form-control" id="shopLongitude" placeholder="121.00028167648875" type="text" name="shopLongitude" oninput="validateShopInfo();">
+			  <p id="Warn" name="shopLongitudeWarn"><small>  </small></p>
+            </div>
+            <div class="col-xs-2">
+              <label for="shopLatitude">latitude</label>
+              <input class="form-control" id="shopLatitude" placeholder="24.78472733371133" type="text" name="shopLatitude" oninput="validateShopInfo();">
+			  <p id="Warn" name="shopLatitudeWarn"><small>  </small></p>
+            </div>
+          </div>
+		  <div class=" row" style=" margin-top: 25px;">
+			<div class=" col-xs-3">
+				<button type="submit" class="btn btn-primary" name="shopRegisterButton" disabled>register</button>
+			</div>
+		  </div>
+		  <script type="text/javascript">
+			function validateShopInfo() {
+				var form = new FormData();
+				form.append('name', $("#shopName").val());
+				form.append('type', $("#shopType").val());
+				form.append('longitude', $("#shopLongitude").val());
+				form.append('latitude', $("#shopLatitude").val());
+				$.ajax({
+					type: "POST",
+					url: $SCRIPT_ROOT + "/validateShopInfo",
+					data: form,
+					success: (data) => {
+						document.getElementsByName("shopNameWarn")[0].textContent = data.nameResult;
+						document.getElementsByName("shopTypeWarn")[0].textContent = data.typeResult;
+						document.getElementsByName("shopLongitudeWarn")[0].textContent = data.longitudeResult;
+						document.getElementsByName("shopLatitudeWarn")[0].textContent = data.latitudeResult;
+						document.getElementsByName("shopRegisterButton")[0].disabled = data.error;
+					},
+					contentType: false,
+					processData: false,
+					dataType: "json"
+				});
+			}
+		  </script>
+		</form>
+		{% else %}
+		<form class="form-group ">
+		  <div class="row">
+            <div class="col-xs-2">
+              <label for="ex5">shop name</label>
+              <input class="form-control" id="ex5" value="{{userShop.shopName}}" type="text" disabled>
+            </div>
+            <div class="col-xs-2">
+              <label for="ex5">shop category</label>
+              <input class="form-control" id="ex5" value="{{userShop.shopType}}" type="text" disabled>
+            </div>
+            <div class="col-xs-2">
+              <label for="ex6">latitude</label>
+              <input class="form-control" id="ex6" value="{{userShop.longitude}}" type="text" disabled>
+            </div>
+            <div class="col-xs-2">
+              <label for="ex8">longitude</label>
+              <input class="form-control" id="ex8" value="{{userShop.latitude}}" type="text" disabled>
+            </div>
+          </div>
+		  <div class=" row" style=" margin-top: 25px;">
+			<div class=" col-xs-3">
+				<button type="button" class="btn btn-primary" disabled >register</button>
+			</div>
+		  </div>
+		</form>
+		{% endif %}
+        
+
+        <hr>
+        <h3>ADD</h3>
+
+        <form class="form-group " enctype=multipart/form-data method="POST" action="{{url_for('registerItem')}}">
+		{% if userShop is none %}
+          <div class="row">
+
+            <div class="col-xs-6">
+              <label for="ex3">meal name</label>
+              <input class="form-control" id="ex3" type="text" disabled>
+            </div>
+          </div>
+          <div class="row" style=" margin-top: 15px;">
+            <div class="col-xs-3">
+              <label for="ex7">price</label>
+              <input class="form-control" id="ex7" type="text" disabled>
+            </div>
+            <div class="col-xs-3">
+              <label for="ex4">quantity</label>
+              <input class="form-control" id="ex4" type="text" disabled>
+            </div>
+          </div>
+
+
+          <div class="row" style=" margin-top: 25px;">
+
+            <div class=" col-xs-3">
+              <label for="ex12">上傳圖片</label>
+              <input id="myFile" type="file" name="myFile" multiple class="file-loading" disabled>
+
+            </div>
+            <div class=" col-xs-3">
+
+              <button style=" margin-top: 15px;" type="button" class="btn btn-primary" disabled>Add</button>
+            </div>
+          </div>
+		{% else %}
+		  <div class="row">
+
+            <div class="col-xs-6">
+              <label for="ex3">meal name</label>
+              <input class="form-control" id="itemName" type="text" name="itemName" oninput="validateItemInfo();">
+              <p id="Warn" name="itemNameWarn"><small>  </small></p>
+            </div>
+          </div>
+          <div class="row" style=" margin-top: 15px;">
+            <div class="col-xs-3">
+              <label for="ex7">price</label>
+              <input class="form-control" id="itemPrice" type="text" name="itemPrice" oninput="validateItemInfo();">
+              <p id="Warn" name="itemPriceWarn"><small>  </small></p>
+            </div>
+            <div class="col-xs-3">
+              <label for="ex4">quantity</label>
+              <input class="form-control" id="itemQuantity" type="text" name="itemQuantity" oninput="validateItemInfo();">
+              <p id="Warn" name="itemQuantityWarn"><small>  </small></p>
+            </div>
+          </div>
+
+
+          <div class="row" style=" margin-top: 25px;">
+
+            <div class=" col-xs-3">
+              <label for="ex12">上傳圖片</label>
+              <input id="itemPic" type="file" name="itemPic" multiple class="file-loading" oninput="validateItemInfo();" accept="image/*">
+              <p id="Warn" name="itemPicWarn"><small>  </small></p>
+
+            </div>
+            <div class=" col-xs-3">
+
+              <button style=" margin-top: 15px;" type="submit" class="btn btn-primary" name="itemAddButton">Add</button>
+            </div>
+          </div>
+          <script type="text/javascript">
+			function validateItemInfo() {
+				var form = new FormData();
+				form.append('name', $("#itemName").val());
+				form.append('price', $("#itemPrice").val());
+				form.append('quantity', $("#itemQuantity").val());
+				form.append('pic', $("#itemPic")[0].files.length.toString());
+				$.ajax({
+					type: "POST",
+					url: $SCRIPT_ROOT + "/validateItemInfo",
+					data: form,
+					success: (data) => {
+						document.getElementsByName("itemNameWarn")[0].textContent = data.nameResult;
+						document.getElementsByName("itemPriceWarn")[0].textContent = data.priceResult;
+						document.getElementsByName("itemQuantityWarn")[0].textContent = data.quantityResult;
+						document.getElementsByName("itemPicWarn")[0].textContent = data.picResult;
+                        document.getElementsByName("itemAddButton")[0].disabled = data.error;
+					},
+					contentType: false,
+					processData: false,
+					dataType: "json"
+				});
+			}
+		  </script>
+		{% endif %}
+        </form>
+
+        <div class="row">
+          <div class="  col-xs-8">
+            <table class="table" style=" margin-top: 15px;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Picture</th>
+                  <th scope="col">meal name</th>
+              
+                  <th scope="col">price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for item in userShopItems %}
+                <tr>
+                  <th scope="row"> {{loop.index}} </th>
+                  <td><img src="{{ url_for('static', filename='Picture/' + item.3) }}" width="100" height="100" alt="{{ item.3 }}}"></td>
+                  <td> {{ item.0 }} </td>
+                
+                  <td> {{ item.1 }} </td>
+                  <td> {{ item.2 }} </td>
+                  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{ item.4 }}">
+                  Edit
+                  </button></td>
+                  <!-- Modal -->
+                      <div class="modal fade" id="{{ item.4 }}" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel"> {{item.0}} Edit </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                                <div class="modal-body">
+                                  <form role="form" method="POST" action="{{ url_for('updateItem') }}">
+                                    <input type="hidden" name="itemId" value="{{ item.4 }}">
+                                    <div class="form-group">
+                                    <label class="control-label">Price</label>
+                                      <div>
+                                      <input type="text" class="form-control input-lg" name="Price" value="">
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label class="control-label">Quantity</label>
+                                      <div>
+                                        <input type="text" class="form-control input-lg" name="Quantity">
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <div>
+                                        <button type="submit" class="btn btn-success">Edit</button>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal" name="Close">Close</button>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                      </div>
+                  <td>
+                  <form role="form" method="POST" action="{{ url_for('deleteItem') }}">
+                    <input type="hidden" name="itemId" value="{{ item.4 }}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
+  <script>
+    $(document).ready(function () {
+      $(".nav-tabs a").click(function () {
+        $(this).tab('show');
+      });
+    });
+  </script>
+  <script type=text/javascript>
+	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+  <script type="text/javascript">
+			function validateEditInfo() {
+				var form = new FormData();
+				form.append('name', $("#shopName").val());
+				form.append('type', $("#shopType").val());
+				form.append('longitude', $("#shopLongitude").val());
+				form.append('latitude', $("#shopLatitude").val());
+				$.ajax({
+					type: "POST",
+					url: $SCRIPT_ROOT + "/validateShopInfo",
+					data: form,
+					success: (data) => {
+						document.getElementsByName("shopNameWarn")[0].textContent = data.nameResult;
+						document.getElementsByName("shopTypeWarn")[0].textContent = data.typeResult;
+						document.getElementsByName("shopLongitudeWarn")[0].textContent = data.longitudeResult;
+						document.getElementsByName("shopLatitudeWarn")[0].textContent = data.latitudeResult;
+						document.getElementsByName("shopRegisterButton")[0].disabled = data.error;
+					},
+					contentType: false,
+					processData: false,
+					dataType: "json"
+				});
+			}
+		  </script>
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
