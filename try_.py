@@ -205,7 +205,7 @@ def deleteItem():
     flash('Delete Success.', category='success')
     return redirect(url_for('main'))
 
-@app.route('/sign-up.html', methods=('GET', 'POST'))
+@app.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method=='POST':
         name = request.form.get('name')
@@ -258,12 +258,12 @@ def register():
                 error = f"Account {Account} is already registered"
             else:
                 flash('Register success!')
-                return redirect(url_for('main'))
+                return redirect(url_for('login'))
         print(error)
         flash(error)
     return render_template('sign-up.html')
 
-@app.route('/index.html', methods=('GET', 'POST'))
+@app.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method=='POST':
         Account = request.form.get('Account')
@@ -278,7 +278,7 @@ def login():
         if error is None:
             session.clear()
             session['uid'] = accountdata[0]
-            return redirect(url_for('main'))
+            return redirect(url_for('login'))
     
         flash(error)
         print(error)
