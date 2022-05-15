@@ -57,7 +57,8 @@
 
 	</head>
 	<body>
-
+        <div class="container">
+  	
 		
 		<div class="container">
 
@@ -68,6 +69,16 @@
 					<!-- Start Sign In Form -->
 					<form method="POST" action="{{url_for('login')}}" class="fh5co-form animate-box" data-animate-effect="fadeIn">
 						<h2>Sign In</h2>
+						{% block content %}
+                            <div class="form-group">
+                                {% for message in get_flashed_messages(with_categories=True) %}
+                                <div class="alert alert-{{ message[0] }}" style="color:red">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    {{ message[1]}}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% endblock content %}
 						<div class="form-group">
 							<label for="Account" class="sr-only">Account</label>
 							<input type="text" class="form-control" id="Account" name="Account" placeholder="Account" autocomplete="off">
@@ -83,6 +94,7 @@
 						<div class="form-group">
 							<input type="submit" value="Sign In" class="btn btn-primary">
 						</div>
+
 					</form>
 					<!-- END Sign In Form -->
 
