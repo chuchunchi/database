@@ -51,36 +51,50 @@
         <h3>Profile</h3>
         <div class="row">
           <div class="col-xs-12">
-            Accouont: sherry, user, PhoneNumber: 0912345678,  location: 24.786944626633865, 120.99753981198887
+            <p>Account : {{userInfo.account}}</p>
+            <p>Name : {{userInfo.name}}</p>
+            <p>Phone Number : {{userInfo.phone}}</p>
+            <p>Location : {{userInfo.longitude}} , {{userInfo.latitude}}</p>     
             
-            <button type="button " style="margin-left: 5px;" class=" btn btn-info " data-toggle="modal"
-            data-target="#location">edit location</button>
+            <button type="button" style="margin-left: 5px;" class=" btn btn-info " data-toggle="modal"
+            data-target="#location" >edit location</button>
             <!--  -->
+            
             <div class="modal fade" id="location"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            
               <div class="modal-dialog  modal-sm">
+                
                 <div class="modal-content">
+                <form method="POST" action="{{ url_for('editLocation') }}"> 
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">edit location</h4>
                   </div>
+                  
                   <div class="modal-body">
+                  
                     <label class="control-label " for="latitude">latitude</label>
-                    <input type="text" class="form-control" id="latitude" placeholder="enter latitude">
-                      <br>
-                      <label class="control-label " for="longitude">longitude</label>
-                    <input type="text" class="form-control" id="longitude" placeholder="enter longitude">
+                    <input type="text" class="form-control" id="latitude" name="latitude" placeholder="enter latitude">
+                    <br>
+                    <label class="control-label " for="longitude">longitude</label>
+                    <input type="text" class="form-control" id="longitude" name="longitude" placeholder="enter longitude">
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Edit</button>
+                  <div class="form-group">
+                    <button type="submit" clas="btn btn-success" >Edit</button>
                   </div>
+                  </div>
+                  </form>
                 </div>
               </div>
             </div>
-
+            <br></br>
+            
+            
 
 
             <!--  -->
-            walletbalance: 100
+            <p>Wallet Balance : {{userInfo.wallet}}</p>
             <!-- Modal -->
             <button type="button " style="margin-left: 5px;" class=" btn btn-info " data-toggle="modal"
               data-target="#myModal">Add value</button>
@@ -103,23 +117,23 @@
           </div>
 
         </div>
-
-        <!-- 
-                
-             -->
+        <!-- search -->
+        <br></br>
+        <form class="form-group" method="POST" action="{{url_for('search')}}"> 
         <h3>Search</h3>
         <div class=" row  col-xs-8">
           <form class="form-horizontal" action="/action_page.php">
             <div class="form-group">
               <label class="control-label col-sm-1" for="Shop">Shop</label>
               <div class="col-sm-5">
-                <input type="text" class="form-control" placeholder="Enter Shop name">
+                <input type="text" class="form-control" name="keyword" placeholder="Enter Shop name">
               </div>
-              <label class="control-label col-sm-1" for="distance">distance</label>
+              <label class="control-label col-sm-1" for="Distance">Distance</label>
+              
               <div class="col-sm-5">
-
-
-                <select class="form-control" id="sel1">
+                
+                <select class="form-control" id="sel1" name="distance">
+                  <option>--- select ---</option>
                   <option>near</option>
                   <option>medium </option>
                   <option>far</option>
@@ -128,47 +142,41 @@
               </div>
 
             </div>
-
+            <br></br>
             <div class="form-group">
 
               <label class="control-label col-sm-1" for="Price">Price</label>
               <div class="col-sm-2">
 
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="minPrice">
 
               </div>
               <label class="control-label col-sm-1" for="~">~</label>
               <div class="col-sm-2">
 
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="maxPrice">
 
               </div>
               <label class="control-label col-sm-1" for="Meal">Meal</label>
               <div class="col-sm-5">
-                <input type="text" list="Meals" class="form-control" id="Meal" placeholder="Enter Meal">
-                <datalist id="Meals">
-                  <option value="Hamburger">
-                  <option value="coffee">
-                </datalist>
+                <input type="text" list="Meals" class="form-control" id="Meal" name="meal" placeholder="Enter Meal">
               </div>
             </div>
-
+            <br></br>
             <div class="form-group">
-              <label class="control-label col-sm-1" for="category"> category</label>
+              <label class="control-label col-sm-1" for="category">Category</label>
             
               
                 <div class="col-sm-5">
-                  <input type="text" list="categorys" class="form-control" id="category" placeholder="Enter shop category">
-                  <datalist id="categorys">
-                    <option value="fast food">
-               
-                  </datalist>
+                  <input type="text" list="categorys" class="form-control" id="category" name="category" placeholder="Enter shop category">
                 </div>
                 <button type="submit" style="margin-left: 18px;"class="btn btn-primary">Search</button>
               
             </div>
           </form>
         </div>
+        </form>
+        
         <div class="row">
           <div class="  col-xs-8">
             <table class="table" style=" margin-top: 15px;">
@@ -183,18 +191,19 @@
                 </tr>
               </thead>
               <tbody>
+                {% for shop in shopList %}
                 <tr>
-                  <th scope="row">1</th>
+                  <th scope="row">{{ loop.index }}</th>
                
-                  <td>macdonald</td>
-                  <td>fast food</td>
-                
-                  <td>near </td>
+                  <td>{{ shop.0 }}</td>
+                  <td>{{ shop.1 }}</td>
+                  <td>{{ shop.2 }}</td>
+                <form role="form" method="POST" action="{{ url_for('openMenu') }}"></form>
                   <td>  <button type="button" class="btn btn-info " data-toggle="modal" data-target="#macdonald">Open menu</button></td>
-            
+                  <input type="hidden" name="sid" value="{{ shop.3 }}">
+                </form>
                 </tr>
-           
-
+                {% endfor %}
               </tbody>
             </table>
 
@@ -228,29 +237,19 @@
                 </tr>
               </thead>
               <tbody>
+                {% for item in itemList %}
                 <tr>
-                  <th scope="row">1</th>
-                  <td><img src="Picture/1.jpg" with="50" heigh="10" alt="Hamburger"></td>
+                  <th scope="row">{{ loop.index }}</th>
+                  <td><img src="{{ url_for('static', filename='Picture/' + item.0) }}" with="50" heigh="10" alt="{{ item.0 }}"></td>
                 
-                  <td>Hamburger</td>
+                  <td>{{ item.1 }}</td>
                 
-                  <td>80 </td>
-                  <td>20 </td>
+                  <td>{{ item.2 }} </td>
+                  <td>{{ item.3 }} </td>
               
-                  <td> <input type="checkbox" id="cbox1" value="Hamburger"></td>
+                  <td> <input type="checkbox" id="cbox1" value="{{ item.4 }}"></td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td><img src="Picture/2.jpg" with="10" heigh="10" alt="coffee"></td>
-                 
-                  <td>coffee</td>
-             
-                  <td>50 </td>
-                  <td>20</td>
-              
-                  <td><input type="checkbox" id="cbox2" value="coffee"></td>
-                </tr>
-
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -275,7 +274,7 @@
 
         <h3> Start a business </h3>
 		{% if userShop is none %}
-        <form class="form-group " method="POST" action="{{url_for('registerShop')}}">
+        <form class="form-group" method="POST" action="{{url_for('registerShop')}}">
           <div class="row">
             <div class="col-xs-2">
               <label for="shopName">shop name</label>

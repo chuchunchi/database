@@ -43,10 +43,10 @@
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 	
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/animate.css">
-	<link rel="stylesheet" href="css/style.css">
-
+	<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/animate.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
@@ -89,7 +89,8 @@
 						</div>
 						<div class="form-group">
 							<label for="Account" class="sr-only">Account</label>
-							<input type="text" class="form-control" id="Account" name="Account" placeholder="Account" autocomplete="off">
+							<input type="text" class="form-control" id="Account" name="Account" placeholder="Account" autocomplete="off" oninput="validateUser();">
+							<p id="Warn" name="NameWarn" style="color:red"><small>  </small></p>
 						</div>
 						<div class="form-group">
 							<label for="password" class="sr-only">Password</label>
@@ -116,6 +117,27 @@
 							
 						</div>
 						
+						<script type=text/javascript>
+                    	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+                        </script>
+                        
+						<script type="text/javascript">
+            			function validateUser() {
+            				var form = new FormData();
+            				form.append('Account', $("#Account").val());
+            				$.ajax({
+            					type: "POST",
+            					url: $SCRIPT_ROOT + "/validateUser",
+            					data: form,
+            					success: (data) => {
+            						document.getElementsByName("NameWarn")[0].textContent = data.nameResult;
+            					},
+            					contentType: false,
+            					processData: false,
+            					dataType: "json"
+            				});
+            			}
+            		  </script>
 					</form>
 					<!-- END Sign In Form -->
 
@@ -139,4 +161,3 @@
 
 	</body>
 </html>
-
